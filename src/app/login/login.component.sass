@@ -1,0 +1,126 @@
+@import '../../styles/common'
+
+.container
+  width: 100vw
+  height: 100vh
+
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: column
+
+.appname
+  +font(( s: #{ $baseline * 4 }, c: white, w: 900 ))
+  
+  display: flex
+  align-items: center
+
+  .logo
+    position: relative
+    +size(#{ $baseline * 4 })
+
+    margin: auto #{ $baseline / 4 }
+
+    &--back
+      $backsize: 0
+    
+      position: absolute
+      top: $backsize
+      left: $backsize
+      right: $backsize
+      bottom: $backsize
+
+      background: white
+      border-radius: 50%
+
+      z-index: 0
+
+    &--img
+      +size(#{ $baseline * 4 })
+
+      position: relative
+      z-index: 1
+
+.appdesc
+  +font(( c: white ))
+  margin-top: #{ $baseline / 2 }
+
+.auth
+  margin-top: $baseline
+
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+
+.login
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  margin: $baseline auto
+
+  &--credentials
+    display: flex
+    flex-direction: column
+
+    margin-bottom: #{ $baseline / 2 }
+
+    label
+      margin-bottom: #{ $baseline / 2 }
+      +font(( c: $gray ))
+    
+    input
+      +font(( s: $baseline, w: 700 ))
+      -webkit-appearance: none
+      padding: #{ $baseline / 4 }
+      border-radius: #{ $baseline / 8 }
+      padding: $baseline
+      background: $yellow
+
+      transition: border-color 0.2s
+      border: #{ $baseline / 4 } solid $lgray
+
+      &:focus
+        border-color: $dgray
+  
+  &--cta
+    padding: $baseline #{ $baseline * 2 }
+    background: $green
+    color: white
+    border-radius: 3px
+    display: inline-block
+
+.divider
+  padding: $baseline 0
+
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &--text
+    border: #{ $baseline / 8 } solid $gray
+    border-radius: #{ $baseline / 2 }
+    padding: #{ $baseline / 4 } #{ $baseline / 2 }
+    color: white
+  
+  &--bar
+    height: #{ $baseline / 8 }
+    background: $gray
+    width: 100%
+
+.host
+  margin-top: $baseline
+  
+  &--cta
+    padding: $baseline
+    border-radius: #{ $baseline / 8 }
+    background: $dgray
+    color: white
+
+    display: flex
+    align-items: center
+    justify-content: center
+
+    span
+      margin-left: #{ $baseline / 2 }

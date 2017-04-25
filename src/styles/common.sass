@@ -1,0 +1,26 @@
+$baseline: 16px
+
+$black: rgb(37, 37, 39)
+$green: #47CF73
+$gray: #999
+$lgray: #ccc
+$dgray: lighten(black, 30%)
+$yellow: rgb(250, 255, 189)
+
+@mixin font($opts)
+  font:
+    @if map-has-key($opts, s) 
+      size: map-get($opts, s)
+    @if map-has-key($opts, w) 
+      weight: map-get($opts, w)
+  @if map-has-key($opts, c) 
+    color: map-get($opts, c)
+  @if map-has-key($opts, lh)
+    line-height: map-get($opts, lh)
+
+@mixin size( $val )
+  width: $val
+  height: $val
+
+.button:active
+  transform: translateY(1px)
