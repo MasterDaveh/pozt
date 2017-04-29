@@ -6,16 +6,22 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+
+import { AjaxService } from './services/ajax.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent }
 ];
 
 @NgModule({
-  declarations: [ AppComponent, LoginComponent ],
-  imports: [ BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes) ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [ AppComponent, LoginComponent, HomeComponent ],
+  imports: [ 
+    BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)
+  ],
+  providers: [ AjaxService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

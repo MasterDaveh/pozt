@@ -84,12 +84,17 @@
       &:focus
         border-color: $dgray
   
+  &--buttons
+    width: 100%
+    text-align: left
+
   &--cta
     padding: $baseline #{ $baseline * 2 }
     background: $green
     color: white
     border-radius: 3px
     display: inline-block
+
 
 .divider
   padding: $baseline 0
@@ -111,6 +116,10 @@
 
 .host
   margin-top: $baseline
+
+  &--question
+    +font(( s: #{ $baseline / 1.5 }, c: $lightblue ))
+    margin-top: #{ $baseline / 2 }
   
   &--cta
     padding: $baseline

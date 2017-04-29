@@ -12,13 +12,14 @@
     .login
       .login--credentials
         label( for="usr" ) CODEPEN USERNAME
-        input#usr( name="usr" )
-      .login--cta.button Go!
+        input#usr( [(ngModel)]="username" )
+      .login--buttons
+        .login--cta.button( (click)="login()" ) Go!
     .divider
       .divider--bar
       .divider--text OR
       .divider--bar
     .host
-      .host--cta.button 
+      .host--cta.button( routerLink="/home" )
         i.material-icons event_seat
         span Log in as host
