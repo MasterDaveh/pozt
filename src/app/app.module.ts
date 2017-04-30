@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
 import { AjaxService } from './services/ajax.service';
+import { PostsService } from './services/posts.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   imports: [ 
     BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)
   ],
-  providers: [ AjaxService ],
+  providers: [ AjaxService, PostsService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
