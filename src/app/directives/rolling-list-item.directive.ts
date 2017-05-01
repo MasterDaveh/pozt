@@ -20,7 +20,7 @@ export class RollingListItem {
 @Directive({
   selector: '[rollingListItem]'
 })
-export class RollingListDirective {
+export class RollingListItemDirective {
   DOMel: Node;
   constructor(el: ElementRef) {
     this.DOMel = el.nativeElement;

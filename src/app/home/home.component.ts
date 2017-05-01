@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { PostsService, Post } from '../services/posts.service';
-import { RollingListItem } from '../directives/rolling-list.directive';
+import { RollingListItem } from '../directives/rolling-list-item.directive';
+import { RollingListHeaderDirective } from '../directives/rolling-list-header.directive';
 import { ScrollClassItem, ScrollClassDirective } from '../directives/scroll-class.directive';
 
 @Component({
