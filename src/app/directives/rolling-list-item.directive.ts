@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, OnInit } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, AfterContentInit } from '@angular/core';
 
 export class RollingListItem {
   constructor(){}
@@ -6,9 +6,6 @@ export class RollingListItem {
   // triggered when the top border of the item
   // is getting close to the header of the rolling list
   onTopReaching: Function;
-  // triggered when the top border of the item
-  // is getting far away from the top of the rolling list
-  onTopDeparting: Function;
   // establishes when to trigger the events above
   // accepts a decimal number between 0 and 1 that represents
   // the percentage of the pic to show before triggering one of the events
@@ -20,20 +17,44 @@ export class RollingListItem {
 @Directive({
   selector: '[rollingListItem]'
 })
-export class RollingListItemDirective {
-  DOMel: Node;
+export class RollingListItemDirective implements OnInit {
+  DOMel: HTMLElement;
+  elHeight: number;
+  // number of pixels beyond which the events are called
+  boundary: number;
+  // When I have to trigger one of the events I need a reference
+  // to the next and previous indexes, as I want to avoid adding
+  // and subtracting one every time the scroll event is called
+  nextIndex: number;
+  previousIndex: number;
+
   constructor(el: ElementRef) {
     this.DOMel = el.nativeElement;
   }
 
-  @Input() model: RollingListItem;
+  @Input() rollingListItem: RollingListItem;
+  @Input() rollingListIndex: number;
 
-  animateRollUp(){
-
+  onScroll(self: RollingListItemDirective){
+    const pos = self.DOMel.getBoundingClientRect().top;
+    const absPos = Math.abs(pos);
+    // I only check the position if the pic is close to the top of the screen
+    if( absPos > this.elHeight ) return;
+    if( absPos < (this.elHeight - this.boundary) ){
+      self.rollingListItem.onTopReaching( this.rollingListIndex );
+    }
   }
 
-  animateRollDown(){
+  ngOnInit(){
+    window.addEventListener('scroll', () => this.onScroll(this));
+  }
 
+  ngAfterContentInit(){
+    // waiting for the page to render the content
+    setTimeout(() => {
+      this.elHeight = this.DOMel.clientHeight
+      this.boundary = this.elHeight * this.rollingListItem.boundaryRatio;
+    }, 0);
   }
 
 }

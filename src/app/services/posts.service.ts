@@ -26,6 +26,7 @@ export class PostsService {
   
   constructor(private ajax: AjaxService){
     this.apiURL = 'http://cpv2api.com';
+    // this.apiURL = 'http://localhost:3000/';
     this.usr = localStorage.getItem('user');
   }
 

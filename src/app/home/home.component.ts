@@ -1,6 +1,6 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostsService, Post } from '../services/posts.service';
-import { RollingListItem } from '../directives/rolling-list-item.directive';
+import { RollingListItem, RollingListItemDirective } from '../directives/rolling-list-item.directive';
 import { RollingListHeaderDirective } from '../directives/rolling-list-header.directive';
 import { ScrollClassItem, ScrollClassDirective } from '../directives/scroll-class.directive';
 
@@ -9,34 +9,32 @@ import { ScrollClassItem, ScrollClassDirective } from '../directives/scroll-clas
   templateUrl: './home.component.pug',
   styleUrls: ['./home.component.sass']
 })
-export class HomeComponent implements OnInit, OnChanges {
+export class HomeComponent implements OnInit {
   posts: Post[];
   header: {
     avatar: string,
     username: string
   };
-  rollingListModel: RollingListItem;
+  rollingListItemModel: RollingListItem;
   scrollClassModel: ScrollClassItem;
   menuOpen: boolean;
+  activeIndex: number;
+
+  onTopReaching(idx: number, self: HomeComponent){
+    self.activeIndex = idx;
+  }
+
+  getActiveState = idx => idx === this.activeIndex; 
   
   constructor(private postsHelper: PostsService) {
-    this.rollingListModel = {
-      onTopReaching: idx => this.header = this.setHeader(idx),
-      onTopDeparting: idx => this.header = this.setHeader(idx),
+    this.rollingListItemModel = {
+      onTopReaching: idx => this.onTopReaching(idx, this),
       boundaryRatio: 0.7
     };
     this.scrollClassModel = { down: 'menu__down' };
     this.header = { avatar: '', username: '' };
     this.menuOpen = false;
-  }
-
-  // set the model for the rolling-list-header
-  setHeader(idx: number){
-    const obj = {
-      avatar: this.posts[idx].user.avatar,
-      username: this.posts[idx].user.username
-    };
-    return obj;
+    this.activeIndex = 0;
   }
 
   showMenu(){
@@ -46,12 +44,7 @@ export class HomeComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.postsHelper.init(() => {
       this.posts = this.postsHelper.getAll();
-      this.header = this.setHeader(0);
     });
-  }
-
-  ngOnChanges() {
-
   }
 
 }

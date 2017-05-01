@@ -18,7 +18,7 @@
     &--users
       display: flex
       background: white
-      padding: $baseline
+      padding: $baseline 0
       box-shadow: 0 2px 15px 5px rgba(black, 0.2)
     
     &--user
@@ -29,11 +29,12 @@
 
       transition: all 330ms $bezier
       
+      
       &:not(.active)
         opacity: 0.3
 
       &.active
-        margin-right: #{ $baseline * 3 }
+        margin: auto #{ $baseline * 3 }
 
     &--wrapper
       display: flex
@@ -48,6 +49,9 @@
 
     &--username
       margin-top: $baseline
+
+.posts
+  position: relative
 
 .post
   margin: #{ $baseline } 0

@@ -2,13 +2,17 @@
   .header--users
     .header--user( 
       *ngFor="let post of posts; let idx = index"
-      "[ngClass]"="{'active': idx === 0}"
+      "[ngClass]"="{'active': getActiveState(idx)}"
     )
       .header--avatar( (click)="goToProfile(post.user.username)" )
         img( [src]="post.user.avatar" )
       .header--username @{{ post.user.username }}
 .posts
-  .post( *ngFor="let post of posts" )
+  .post( 
+    *ngFor="let post of posts; let idx = index"
+    "[rollingListItem]"="rollingListItemModel"
+    "[rollingListIndex]"="idx"
+  )
     .post--title {{ post.title }}
     .post--preview( [innerHTML]="post.content" )
     .post--divider
