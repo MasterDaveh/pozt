@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 
 import { AjaxService } from './services/ajax.service';
 import { PostsService } from './services/posts.service';
+import { RollingListDirective } from './directives/rolling-list.directive';
+import { ScrollClassDirective } from './directives/scroll-class.directive';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,7 +19,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ AppComponent, LoginComponent, HomeComponent ],
+  declarations: [ AppComponent, LoginComponent, HomeComponent, RollingListDirective, ScrollClassDirective ],
   imports: [ 
     BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)
   ],

@@ -10,7 +10,11 @@ export class Post {
   views: string;
   loves: string;
   comments: string;
-  user: Object;
+  user: {
+    nicename: string,
+    username: string,
+    avatar: string
+  };
   lastUpdated: number;
 }
 
@@ -48,8 +52,7 @@ export class PostsService {
       this
         .ajax.call(url)
         .subscribe( followers => {
-          // loose comparison as followers.success could be a string
-          if( followers.success == true ){
+          if( followers.success == "true" ){
             const flwCount = followers.length;
             let idx = 0;
             // for each follower get his posts
@@ -65,6 +68,16 @@ export class PostsService {
                   idx++;
                 });
             });
+          }
+        });
+    } else {
+      url += '/posts/picks';
+      this
+        .ajax.call(url)
+        .subscribe( posts => {
+          if( posts.success == "true" ){
+            this.posts = posts.data;
+            this.onInitialFetchEnd(done);
           }
         });
     }

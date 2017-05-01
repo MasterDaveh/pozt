@@ -1,0 +1,39 @@
+.posts--header
+  .header--users
+    .header--user( 
+      *ngFor="let post of posts; let idx = index"
+      "[ngClass]"="{'active': idx === 0}"
+    )
+      .header--avatar( (click)="goToProfile(post.user.username)" )
+        img( [src]="post.user.avatar" )
+      .header--username @{{ post.user.username }}
+.posts
+  .post( *ngFor="let post of posts" )
+    .post--title {{ post.title }}
+    .post--preview( [innerHTML]="post.content" )
+    .post--divider
+      hr
+    .post--stats
+      .stats--block
+        i.material-icons remove_red_eye 
+        .stats--text {{ post.views }}
+      .stats--block
+        i.material-icons favorite
+        .stats--text {{ post.loves }}
+      .stats--block
+        i.material-icons comment
+        .stats--text {{ post.comments }}
+
+.menu( [scrollClass]="scrollClassModel" )
+  .menu--bar( "[ngClass]"="{menu__open: menuOpen}" )
+    .menu--action
+      i.material-icons face
+      .menu--desc Profile
+    .menu--action
+      i.material-icons favorite
+      .menu--desc Loved
+    .menu--action
+      i.material-icons save
+      .menu--desc Saved
+  .menu--icon( (click)="showMenu()" )
+    i.material-icons home
