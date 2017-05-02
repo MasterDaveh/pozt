@@ -19,12 +19,17 @@ export class HomeComponent implements OnInit {
   scrollClassModel: ScrollClassItem;
   menuOpen: boolean;
   activeIndex: number;
+  user: string;
 
   onTopReaching(idx: number, self: HomeComponent){
     self.activeIndex = idx;
   }
 
-  getActiveState = idx => idx === this.activeIndex; 
+  getActiveState = idx => idx === this.activeIndex;
+
+  goToProfile(){
+
+  } 
   
   constructor(private postsHelper: PostsService) {
     this.rollingListItemModel = {
@@ -35,6 +40,7 @@ export class HomeComponent implements OnInit {
     this.header = { avatar: '', username: '' };
     this.menuOpen = false;
     this.activeIndex = 0;
+    this.user = localStorage.getItem('user');
   }
 
   showMenu(){

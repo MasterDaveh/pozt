@@ -18,23 +18,31 @@
     &--users
       display: flex
       background: white
-      padding: $baseline 0
       box-shadow: 0 2px 15px 5px rgba(black, 0.2)
     
     &--user
-      margin-right: #{ $baseline * 2 }
+      padding: $baseline #{ $baseline / 2 }
       text-align: center
       position: relative
       z-index: 0
 
+      width: #{ $baseline * 5 }
+      word-break: break-all
+      box-sizing: content-box
+
       transition: all 330ms $bezier
+      background: white
       
-      
-      &:not(.active)
+      &:active
+        background: darken(white, 20%)
+
+      &:not(.user__active)
         opacity: 0.3
 
-      &.active
-        margin: auto #{ $baseline * 3 }
+      &.user__active
+        padding:
+          left: #{ $baseline * 2 }
+          right: #{ $baseline * 2 }
 
     &--wrapper
       display: flex
@@ -42,6 +50,8 @@
       justify-content: space-between
 
     &--avatar
+      transition: transform 120ms $bezier
+      transform: translateY(0)
 
       img
         +size(#{ $baseline * 3 })
@@ -49,6 +59,9 @@
 
     &--username
       margin-top: $baseline
+      
+      transition: transform 120ms $bezier
+      transform: translateY(0)
 
 .posts
   position: relative
@@ -116,8 +129,6 @@
     display: flex
     justify-content: space-around
     width: 100%
-    padding: #{ $baseline / 2 }
-    padding-bottom: $baseline
     z-index: 0
     
     background: $green
@@ -144,12 +155,29 @@
     text-align: center
     position: relative
 
-    transition: opacity 330ms $bezier
+    width: 100%
+    padding: #{ $baseline / 2 }
+    padding-bottom: $baseline
+
+    transition: all 330ms $bezier
     opacity: 0
+    background: $green
+
+    &:active
+      background: darken($green, 20%)
+
+      i.material-icons, .menu--desc
+        opacity: 0.3
 
   &--desc
     color: white
 
+    transition: opacity 330ms $bezier
+    opacity: 1
+
   i.material-icons
     color: white
     margin: #{ $baseline / 2 }
+
+    transition: opacity 330ms $bezier
+    opacity: 1

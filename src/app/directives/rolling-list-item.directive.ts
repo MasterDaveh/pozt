@@ -22,11 +22,6 @@ export class RollingListItemDirective implements OnInit {
   elHeight: number;
   // number of pixels beyond which the events are called
   boundary: number;
-  // When I have to trigger one of the events I need a reference
-  // to the next and previous indexes, as I want to avoid adding
-  // and subtracting one every time the scroll event is called
-  nextIndex: number;
-  previousIndex: number;
 
   constructor(el: ElementRef) {
     this.DOMel = el.nativeElement;
