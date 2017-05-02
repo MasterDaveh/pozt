@@ -12,16 +12,19 @@ import { PostsService } from './services/posts.service';
 import { RollingListItemDirective } from './directives/rolling-list-item.directive';
 import { ScrollClassDirective } from './directives/scroll-class.directive';
 import { RollingListHeaderDirective } from './directives/rolling-list-header.directive';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent },
+  { path: 'profile/:username', component: ProfileComponent }
 ];
 
 @NgModule({
   declarations: [ 
-    AppComponent, LoginComponent, HomeComponent, RollingListItemDirective, ScrollClassDirective, RollingListHeaderDirective 
+    AppComponent, LoginComponent, HomeComponent, RollingListItemDirective, ScrollClassDirective, RollingListHeaderDirective,
+    ProfileComponent 
   ],
   imports: [ 
     BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)

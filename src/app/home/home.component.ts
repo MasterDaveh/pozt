@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostsService, Post } from '../services/posts.service';
 import { RollingListItem, RollingListItemDirective } from '../directives/rolling-list-item.directive';
 import { RollingListHeaderDirective } from '../directives/rolling-list-header.directive';
@@ -27,11 +28,12 @@ export class HomeComponent implements OnInit {
 
   getActiveState = idx => idx === this.activeIndex;
 
-  goToProfile(){
-
+  goToProfile(username?: string){
+    let usr = username? username : localStorage.getItem('user');
+    this.router.navigate(['/profile', usr]);
   } 
   
-  constructor(private postsHelper: PostsService) {
+  constructor(private postsHelper: PostsService, private router: Router) {
     this.rollingListItemModel = {
       onTopReaching: idx => this.onTopReaching(idx, this),
       boundaryRatio: 0.7
