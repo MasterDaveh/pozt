@@ -1,1 +1,26 @@
-p What up {{ username }}!
+.profile
+  .profile--actions( routerLink="/home" )
+    i.material-icons keyboard_arrow_left
+  .profile--header
+    .profile--info
+      .profile--fullname {{ userInfo.nicename }}
+      .profile--username @{{ userInfo.username }}
+    .profile--pic
+      img( src="{{ userInfo.avatar }}" )
+    .profile--stats
+      .stats--block
+        .stats--number {{ userInfo.followers }}
+        .stats--txt Followers
+      .stats--block
+        .stats--number {{ userInfo.following }}
+        .stats--txt Following
+  .profile--bio {{ userInfo.bio }}
+  .profile--links( *ngIf="userInfo.links.length > 0" )
+    .links--block
+      .profile--link( *ngFor="let link of userInfo.links" )
+        .link--text( (click)="openLink(link)" ) {{ extractDomain(link) }}
+    .links--block( 
+      *ngIf="loggedUser === userInfo.username" 
+      "(click)"="logOut()"
+    )
+      .profile--logout Logout

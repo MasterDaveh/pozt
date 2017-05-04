@@ -12,7 +12,9 @@ export class AjaxService {
   call(url: string){
     return this.http.get(url)
                     .map(( res: Response ) => res.json())
-                    .catch((err: any) => Observable.throw(err.json().error || 'Server error'));
+                    .catch((err: any) =>
+                      Observable.throw(err.json() || 'Server error')
+                    );
   }
 
 }

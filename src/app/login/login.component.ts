@@ -1,6 +1,6 @@
 ;import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AjaxService } from '../services/ajax.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -11,17 +11,20 @@ export class LoginComponent implements OnInit {
   username: string;
   APIurl: string;
 
-  constructor(private ajax: AjaxService, private router: Router) {
+  constructor(private ajax: AjaxService, private router: Router, private route: ActivatedRoute) {
     this.username = "";
     this.APIurl = 'http://cpv2api.com';
   }
 
   ngOnInit() {
-    const usr = localStorage.getItem('user');
-    console.log(usr);
-    if( usr ){
-      this.router.navigate(['/home']);
-    }
+    this.route.params.subscribe((routeParams) => {
+      if( routeParams.redirect == 'true' ){
+        const usr = localStorage.getItem('user');
+        if( usr ){
+          this.router.navigate(['/home']);
+        }
+      }
+    });
   }
 
   goHome(usr: string){

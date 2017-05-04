@@ -1,0 +1,139 @@
+@import '../../styles/common'
+
+$loader: 'https://lh3.googleusercontent.com/HxxW_58gNpRWgclEu0qFTJpCMlpqEUKvgnRWO1zn7F1f0Tn3gB-RTqVQyt3Gm5IQMH1ts39JD18Ira0=s220-rw'
+
+$codepen-header: 'https://production-assets.codepen.io/assets/profile/profile-bg-8ff33bd9518be912289d4620cb48f21eb5c9a2e0b9577484126cfe10a5fb354f.svg'
+
+.profile
+  height: 100vh
+  background: $ddgray
+
+  &--actions
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    background: rgba(black, 0.4)
+
+    display: flex
+    align-items: center
+    padding: #{ $baseline / 2 }
+
+    z-index: 1
+
+    i.material-icons, span
+      color: white
+    
+    i.material-icons
+      font-size: #{ $baseline * 2 }
+    
+    span
+      font-size: $baseline
+
+  &--header
+    background:
+      image: url($codepen-header)
+      size: cover
+    height: 50vh
+
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    position: relative
+  
+  &--info
+    padding: $baseline
+    padding-bottom: #{ $baseline * 2 }
+
+  &--fullname
+    +font(( s: #{ $baseline * 2 }, c: white, w: 900 ))
+    padding-top: #{ $baseline / 2 }
+    
+  &--username
+    +font(( s: $baseline, c: $gray ))
+
+  &--stats
+    background: black
+    display: flex
+    flex-direction: column
+
+    padding: $baseline
+
+    .stats
+      &--block
+        display: flex
+        justify-content: space-between
+        width: #{ $baseline * 6 }
+
+        &:first-child
+          padding-bottom: #{ $baseline / 2 }
+      
+      &--number
+        color: white
+        margin-right: #{ $baseline / 2 }
+      
+      &--txt
+        color: $gray
+  
+  &--bio
+    padding: #{ $baseline * 3 } $baseline 
+    +font(( c: white, s: $baseline, w: 300 ))
+
+  &--pic
+    position: absolute
+    bottom: 0
+    right: $baseline
+
+    transform: translateY(17.5%)
+
+    background:
+      color: white
+      image: url($loader)
+      size: cover
+
+    img
+      +size(#{ $baseline * 8 })
+      box-shadow: 0 5px 10px 0 rgba(black, 0.5)
+  
+  &--links
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+    .links--block
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 100%
+
+  &--link
+    padding: $baseline
+    color: gray
+    flex-basis: 100%
+    text-align: center
+
+    transition: all 330ms $bezier
+
+    &:active
+      background: darken($ddgray, 10%)
+      opacity: 0.5
+  
+  &--logout
+    background: $red
+    text-align: center
+    color: white
+    width: 100%
+
+    padding: $baseline
+
+    transition: all 330ms $bezier
+
+    &:active
+      background: darken($red, 10%)
+      opacity: 0.5

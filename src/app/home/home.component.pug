@@ -45,7 +45,7 @@
     .menu--action( *ngIf="user !== 'host'" )
       i.material-icons save
       .menu--desc Saved
-    .menu--action( *ngIf="user === 'host'" )
+    .menu--action( *ngIf="user === 'host'" routerLink="/login/false" )
       i.material-icons exit_to_app
       .menu--desc Login
     .menu--action( *ngIf="user === 'host'" )

@@ -28,6 +28,7 @@ export class PostsService {
     this.apiURL = 'http://cpv2api.com';
     // this.apiURL = 'http://localhost:3000/';
     this.usr = localStorage.getItem('user');
+    this.posts = [];
   }
 
   getAll = () => this.posts;
@@ -54,16 +55,18 @@ export class PostsService {
         .ajax.call(url)
         .subscribe( followers => {
           if( followers.success == "true" ){
-            const flwCount = followers.length;
+            const flwCount = followers.data.length;
             let idx = 0;
             // for each follower get his posts
             followers.data.forEach( flw => {
-              url = `${ this.apiURL }/published/`;
+              url = `${ this.apiURL }/posts/published/${ flw.username }`;
               this
                 .ajax.call(url)
                 .subscribe( posts => {
-                  self.posts.push( posts );
-                  if( idx === flwCount ){
+                  if( !posts.error ) {
+                    self.posts.push( posts.data );
+                  }
+                  if( idx === (flwCount - 1) ){
                     this.onInitialFetchEnd(done);
                   }
                   idx++;

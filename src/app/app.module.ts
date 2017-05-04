@@ -15,8 +15,8 @@ import { RollingListHeaderDirective } from './directives/rolling-list-header.dir
 import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login/true', pathMatch: 'full' },
+  { path: 'login/:redirect', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'profile/:username', component: ProfileComponent }
 ];
