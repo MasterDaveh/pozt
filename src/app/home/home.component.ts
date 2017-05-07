@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   // number of rendered elements
   boundary: number;
   lastActiveIndex: number;
+  isSearchBarVisible: boolean;
 
   onTopReaching(idx: number, self: HomeComponent){
     if( self.activeIndex === idx ) return;
@@ -59,6 +60,14 @@ export class HomeComponent implements OnInit {
   showPost(url: string){
     window.open(url, '_blank');
   }
+
+  showSearchBar(){
+    this.isSearchBarVisible = true;
+  }
+
+  hideSearchBar(){
+    this.isSearchBarVisible = false;
+  }
   
   constructor(private postsHelper: PostsService, private router: Router) {}
 
@@ -76,6 +85,7 @@ export class HomeComponent implements OnInit {
     this.boundary = 10;
     this.lastActiveIndex = this.activeIndex;
     this.fetchingPosts = false;
+    this.isSearchBarVisible = false;
 
     this.postsHelper.init( _ => {
       this.posts = this.postsHelper.getAll();

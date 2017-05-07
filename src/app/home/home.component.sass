@@ -1,5 +1,7 @@
 @import '../../styles/common';
 
+$codepen-header: 'https://production-assets.codepen.io/assets/profile/profile-bg-8ff33bd9518be912289d4620cb48f21eb5c9a2e0b9577484126cfe10a5fb354f.svg'
+
 .posts--header
   position: fixed
   top: 0
@@ -190,3 +192,69 @@
 
     transition: opacity 330ms $bezier
     opacity: 1
+  
+.search
+  position: fixed
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  z-index: 1
+
+  background: rgba(black, 0.95)
+  pointer-events: none
+
+  transition: opacity 330ms $bezier
+  opacity:  0
+
+  &.search__visible
+    pointer-events: all
+    opacity: 1
+
+  &--bar
+    display: flex
+    flex-direction: column
+    height: 30vh
+
+    position: relative
+
+    background:
+      image: url($codepen-header)
+      size: cover
+    
+    .bar--group
+      display: flex
+      align-items: flex-end
+      justify-content: center
+      
+      &:not(:first-child)
+        position: absolute
+        bottom: 0
+
+        padding: #{ $baseline / 2 }
+    
+    input
+      display: inline-block
+      width: 100%
+      background: none
+      border-color: transparent
+      outline: none
+      +font((s: #{ $baseline * 3 }, w: 900, c: white))
+
+    i.material-icons
+      +font(( s: #{ $baseline * 2.5 }, c: darken(white, 50%) ))
+  
+  &--back
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-basis: 100%
+
+    padding: #{ $baseline / 2 }
+    background: rgba(black, 0.8)
+    
+    i.material-icons
+      +font(( s: #{ $baseline * 2 }, c: white ))
+
+      &:nth-child(2)
+        font-size: #{ $baseline * 1.5 }

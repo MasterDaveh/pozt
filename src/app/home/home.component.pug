@@ -30,7 +30,7 @@
 
 .menu( [scrollClass]="scrollClassModel" )
   .menu--bar( 
-    "[ngClass]"="{menu__open: menuOpen}"
+    [ngClass]="{menu__open: menuOpen}"
   )
     .menu--action( 
       *ngIf="user !== 'host'"
@@ -38,17 +38,23 @@
     )
       i.material-icons face
       .menu--desc Profile
-    .menu--action( *ngIf="user !== 'host'" )
-      i.material-icons favorite
-      .menu--desc Loved
-    .menu--action( *ngIf="user !== 'host'" )
-      i.material-icons save
-      .menu--desc Saved
     .menu--action( *ngIf="user === 'host'" routerLink="/login/false" )
       i.material-icons exit_to_app
       .menu--desc Login
-    .menu--action( *ngIf="user === 'host'" )
+    .menu--action( (click)="showSearchBar()" )
       i.material-icons search
       .menu--desc Search
   .menu--icon( (click)="showMenu()" )
     i.material-icons home
+
+.search( [ngClass]="{'search__visible': isSearchBarVisible}" )
+  .search--bar
+    .bar--group
+      .search--back
+        i.material-icons( (click)="hideSearchBar()" ) keyboard_arrow_left
+        i.material-icons( (click)="query=''" ) clear_all
+    .bar--group
+      input( 
+        placeholder="Search"
+        "[(ngModel)]"="query"
+      )
