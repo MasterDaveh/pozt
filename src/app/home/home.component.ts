@@ -21,9 +21,28 @@ export class HomeComponent implements OnInit {
   menuOpen: boolean;
   activeIndex: number;
   user: string;
+  // number of pics before posts are updated
+  // if boundary === 2 then when activeindex is === posts count - 2
+  // we fetch new posts
+  refreshBoundary: number;
+  fetchingPosts: boolean;
+  // number of rendered elements
+  boundary: number;
+  lastActiveIndex: number;
 
   onTopReaching(idx: number, self: HomeComponent){
+    if( self.activeIndex === idx ) return;
     self.activeIndex = idx;
+
+    if( self.activeIndex === (self.posts.length - self.refreshBoundary) ){
+      if( !self.fetchingPosts ){
+        self.fetchingPosts = true;
+        self.postsHelper.refresh(newPosts => {
+          self.fetchingPosts = false;
+          self.posts.push( ...newPosts );
+        });
+      }
+    }
   }
 
   getActiveState = idx => idx === this.activeIndex;
@@ -32,25 +51,33 @@ export class HomeComponent implements OnInit {
     let usr = username? username : localStorage.getItem('user');
     this.router.navigate(['/profile', usr]);
   } 
+
+  showMenu(){
+    this.menuOpen = !this.menuOpen;
+  }
+
+  showPost(url: string){
+    window.open(url, '_blank');
+  }
   
-  constructor(private postsHelper: PostsService, private router: Router) {
+  constructor(private postsHelper: PostsService, private router: Router) {}
+
+  ngOnInit() {
     this.rollingListItemModel = {
       onTopReaching: idx => this.onTopReaching(idx, this),
-      boundaryRatio: 0.7
+      boundaryRatio: 0.75
     };
     this.scrollClassModel = { down: 'menu__down' };
     this.header = { avatar: '', username: '' };
     this.menuOpen = false;
     this.activeIndex = 0;
     this.user = localStorage.getItem('user');
-  }
+    this.refreshBoundary = 3;
+    this.boundary = 10;
+    this.lastActiveIndex = this.activeIndex;
+    this.fetchingPosts = false;
 
-  showMenu(){
-    this.menuOpen = !this.menuOpen;
-  }
-
-  ngOnInit() {
-    this.postsHelper.init(() => {
+    this.postsHelper.init( _ => {
       this.posts = this.postsHelper.getAll();
     });
   }

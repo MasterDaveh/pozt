@@ -1,33 +1,32 @@
 .posts--header( rollingListHeader )
   .header--users
-    .header--user( 
-      *ngFor="let post of posts; let idx = index"
-      "(click)"="goToProfile(post.user.username)"
-      "[ngClass]"="{'user__active': getActiveState(idx)}"
-    )
-      .header--avatar
-        img( [src]="post.user.avatar" )
-      .header--username @{{ post.user.username }}
+    ng-container( *ngFor="let post of posts; let idx = index" )
+      .header--user(
+        "(click)"="goToProfile(post.user.username)"
+        "[ngClass]"="{'user__active': getActiveState(idx)}"
+      )
+        .header--avatar
+          img( [src]="post.user.avatar" )
+        .header--username @{{ post.user.username }}
 .posts
-  .post( 
-    *ngFor="let post of posts; let idx = index"
-    "[rollingListItem]"="rollingListItemModel"
-    "[rollingListIndex]"="idx"
-  )
-    .post--title {{ post.title }}
-    .post--preview( [innerHTML]="post.content" )
-    .post--divider
-      hr
-    .post--stats
-      .stats--block
-        i.material-icons remove_red_eye 
-        .stats--text {{ post.views }}
-      .stats--block
-        i.material-icons favorite
-        .stats--text {{ post.loves }}
-      .stats--block
-        i.material-icons comment
-        .stats--text {{ post.comments }}
+  ng-container( *ngFor="let post of posts; let idx = index" )
+    .post( 
+      "[rollingListItem]"="rollingListItemModel"
+      "[rollingListIndex]"="idx"
+      "(click)"="showPost(post.link)"
+    )
+      .post--title {{ post.title }}
+      .post--preview( [innerHTML]="post.content" )
+      .post--stats
+        .stats--block
+          i.material-icons remove_red_eye 
+          .stats--text {{ post.views }}
+        .stats--block
+          i.material-icons favorite
+          .stats--text {{ post.loves }}
+        .stats--block
+          i.material-icons comment
+          .stats--text {{ post.comments }}
 
 .menu( [scrollClass]="scrollClassModel" )
   .menu--bar( 

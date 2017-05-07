@@ -26,7 +26,7 @@ export class RollingListHeaderDirective implements OnInit {
     this.DOMel = this.el.nativeElement;
     this.lastY = -1;
     this.lastX = 0;
-    this.divider = 7.5;
+    this.divider = 4.5;
     window.addEventListener('scroll', () => this.onScroll(this));
   }
 

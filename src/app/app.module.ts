@@ -24,7 +24,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [ 
     AppComponent, LoginComponent, HomeComponent, RollingListItemDirective, ScrollClassDirective, RollingListHeaderDirective,
-    ProfileComponent 
+    ProfileComponent
   ],
   imports: [ 
     BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)

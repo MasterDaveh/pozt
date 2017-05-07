@@ -6,6 +6,7 @@ export class Post {
   
   title: string;
   content: string;
+  fullContent: string;
   link: string;
   views: string;
   loves: string;
@@ -23,68 +24,43 @@ export class PostsService {
   posts: Post[];
   apiURL: string;
   usr: string;
+  pageIndex: number;
   
   constructor(private ajax: AjaxService){
-    this.apiURL = 'http://cpv2api.com';
-    // this.apiURL = 'http://localhost:3000/';
+    this.apiURL = 'http://cpv2api.com/posts/picks';
     this.usr = localStorage.getItem('user');
     this.posts = [];
+    this.pageIndex = 1;
   }
 
   getAll = () => this.posts;
 
-  onInitialFetchEnd(cb: Function){
-    this.posts = this.posts.sort((current: Post, next: Post) => {
-      if( current.lastUpdated >= next.lastUpdated ){
-        return 1;
-      } else {
-        return -1;
-      }
-    });
-    cb();
+  private onFetchEnd(done: Function, posts: Post[]){
+    done(posts);
   }
 
-  init(done: Function) {
+  private fetchPosts(done: Function){
     let url = this.apiURL;
     let self = this;
 
-    if( this.usr !== 'host' ){
-      url += `/followers/${ this.usr }`; 
-      // first I get all the followers of the user
-      this
-        .ajax.call(url)
-        .subscribe( followers => {
-          if( followers.success == "true" ){
-            const flwCount = followers.data.length;
-            let idx = 0;
-            // for each follower get his posts
-            followers.data.forEach( flw => {
-              url = `${ this.apiURL }/posts/published/${ flw.username }`;
-              this
-                .ajax.call(url)
-                .subscribe( posts => {
-                  if( !posts.error ) {
-                    self.posts.push( posts.data );
-                  }
-                  if( idx === (flwCount - 1) ){
-                    this.onInitialFetchEnd(done);
-                  }
-                  idx++;
-                });
-            });
-          }
-        });
-    } else {
-      url += '/posts/picks';
-      this
-        .ajax.call(url)
-        .subscribe( posts => {
-          if( posts.success == "true" ){
-            this.posts = posts.data;
-            this.onInitialFetchEnd(done);
-          }
-        });
-    }
+    url += `?page=${ this.pageIndex }`;
+    this
+      .ajax.call(url)
+      .subscribe( posts => {
+        if( posts.success == "true" ){
+          this.posts.push(...posts.data);
+          this.onFetchEnd(done, posts.data);
+        }
+      });
+  }
+
+  refresh(done: Function){
+    this.pageIndex++;
+    this.fetchPosts(done);
+  }
+
+  init(done: Function) {
+    this.fetchPosts(done);
   }
 
 }

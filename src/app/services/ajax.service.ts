@@ -10,7 +10,7 @@ export class AjaxService {
   constructor(private http: Http){}
 
   call(url: string){
-    return this.http.get(url)
+    return this.http.request(url)
                     .map(( res: Response ) => res.json())
                     .catch((err: any) =>
                       Observable.throw(err.json() || 'Server error')

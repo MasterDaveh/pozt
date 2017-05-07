@@ -68,8 +68,15 @@
 
 .post
   margin: #{ $baseline } 0
-  background: white
   padding-top: #{ $baseline }
+
+  transition: all 330ms $bezier
+  background: white
+  opacity: 1
+
+  &:active
+    background: darken(white, 30%)
+    opacity: 0.5
 
   &--title
     +font(( s: #{ $baseline * 2 }, w: 800 ))
@@ -120,6 +127,8 @@
   transform: translateY(0)
 
   &__down
+    transform: translateY(100%)
+
     .menu--icon
       transform: translateY(100%)
     .menu--bar
