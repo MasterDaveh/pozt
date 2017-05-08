@@ -27,7 +27,7 @@ export class PostsService {
   pageIndex: number;
   
   constructor(private ajax: AjaxService){
-    this.apiURL = 'http://cpv2api.com/posts/picks';
+    this.apiURL = 'http://cpv2api.com';
     this.usr = localStorage.getItem('user');
     this.posts = [];
     this.pageIndex = 1;
@@ -40,7 +40,7 @@ export class PostsService {
   }
 
   private fetchPosts(done: Function){
-    let url = this.apiURL;
+    let url = `${ this.apiURL }/posts/picks`;
     let self = this;
 
     url += `?page=${ this.pageIndex }`;
@@ -61,6 +61,18 @@ export class PostsService {
 
   init(done: Function) {
     this.fetchPosts(done);
+  }
+
+  search(query: string, done: Function){
+    const url = `${ this.apiURL }/search/posts?q=${ query }`;
+    this.ajax.call(url).subscribe((res) => {
+      if( res.success === 'true' ){
+        done(res.data);
+      } else {
+        console.log(res.error);
+        done(res.error);
+      }
+    });
   }
 
 }

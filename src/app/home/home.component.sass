@@ -204,7 +204,9 @@ $codepen-header: 'https://production-assets.codepen.io/assets/profile/profile-bg
   background: rgba(black, 0.95)
   pointer-events: none
 
-  transition: opacity 330ms $bezier
+  overflow: scroll
+
+  transition: opacity 200ms $bezier
   opacity:  0
 
   &.search__visible
@@ -216,7 +218,9 @@ $codepen-header: 'https://production-assets.codepen.io/assets/profile/profile-bg
     flex-direction: column
     height: 30vh
 
-    position: relative
+    position: fixed
+    right: 0
+    left: 0
 
     background:
       image: url($codepen-header)
@@ -258,3 +262,66 @@ $codepen-header: 'https://production-assets.codepen.io/assets/profile/profile-bg
 
       &:nth-child(2)
         font-size: #{ $baseline * 1.5 }
+  
+  &--results
+    overflow: scroll
+
+  .search--item
+    margin-bottom: #{ $baseline * 2 }
+
+    &:first-child
+      margin-top: 35vh
+
+    .item--title
+      +font(( s: #{ $baseline * 1.5 }, w: 900 ))
+      padding: $baseline
+      padding-bottom: $baseline
+      background: white
+    
+    .item--content
+      padding: #{ $baseline }
+      background: white
+    
+    .item--stats
+      display: flex
+      align-items: center
+      justify-content: space-around
+
+      .stats--block
+        display: flex
+        align-items: center
+        
+        span
+          margin-left: #{ $baseline / 4 }
+        
+        span, i.material-icons
+          +font(( s: $baseline, c: white ))
+  
+  &--loader
+    position: absolute
+    bottom: 0
+    left: 0
+
+    background: $green
+
+    height: #{ $baseline / 4 }
+    width: 100%
+
+    animation: load 2s $bezier infinite
+    transform-origin: left top
+
+    @keyframes load
+      0%, 100%
+        transform: scaleX(1)
+        left: 0
+      20%
+        transform: scaleX(0.2)
+        left: 0
+      50%
+        transform: scaleX(1)
+        left: 0
+      65%
+        left: 70%
+      80%
+        transform: scaleX(1)
+

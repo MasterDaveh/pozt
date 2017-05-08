@@ -15,7 +15,7 @@
       "[rollingListIndex]"="idx"
       "(click)"="showPost(post.link)"
     )
-      .post--title {{ post.title }}
+      .post--title( [innerHTML]="post.title" )
       .post--preview( [innerHTML]="post.content" )
       .post--stats
         .stats--block
@@ -52,9 +52,25 @@
     .bar--group
       .search--back
         i.material-icons( (click)="hideSearchBar()" ) keyboard_arrow_left
-        i.material-icons( (click)="query=''" ) clear_all
+        i.material-icons( (click)="clearSearchQuery()" ) clear_all
     .bar--group
       input( 
         placeholder="Search"
         "[(ngModel)]"="query"
+        "(ngModelChange)"="search(query)"
       )
+      .search--loader( *ngIf="searching" )
+  .search--results
+    .search--item( *ngFor="let result of searchResults" )
+      .item--title( [innerHTML]="result.title" )
+      .item--content( [innerHTML]="result.content" )
+      .item--stats
+        .stats--block
+          i.material-icons remove_red_eye
+          span {{ result.views }}
+        .stats--block
+          i.material-icons favorite
+          span {{ result.loves }}
+        .stats--block
+          i.material-icons comment
+          span {{ result.comments }}

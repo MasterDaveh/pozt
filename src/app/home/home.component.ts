@@ -12,6 +12,7 @@ import { ScrollClassItem, ScrollClassDirective } from '../directives/scroll-clas
 })
 export class HomeComponent implements OnInit {
   posts: Post[];
+  searchResults: Post[];
   header: {
     avatar: string,
     username: string
@@ -30,6 +31,9 @@ export class HomeComponent implements OnInit {
   boundary: number;
   lastActiveIndex: number;
   isSearchBarVisible: boolean;
+  // the string the user is searching for
+  query: string;
+  searching: boolean;
 
   onTopReaching(idx: number, self: HomeComponent){
     if( self.activeIndex === idx ) return;
@@ -68,6 +72,23 @@ export class HomeComponent implements OnInit {
   hideSearchBar(){
     this.isSearchBarVisible = false;
   }
+
+  search(query: string){
+    this.searching = true;
+    this.postsHelper.search(query, (res) => {
+      this.searching = false;
+      if( res.indexOf('Error') > -1  ){
+        this.searchResults = [];
+      } else {
+        this.searchResults = res;
+      }
+    });
+  }
+
+  clearSearchQuery(){
+    this.query = '';
+    this.searchResults = [];
+  }
   
   constructor(private postsHelper: PostsService, private router: Router) {}
 
@@ -81,15 +102,17 @@ export class HomeComponent implements OnInit {
     this.menuOpen = false;
     this.activeIndex = 0;
     this.user = localStorage.getItem('user');
-    this.refreshBoundary = 3;
+    this.refreshBoundary = 5;
     this.boundary = 10;
     this.lastActiveIndex = this.activeIndex;
     this.fetchingPosts = false;
     this.isSearchBarVisible = false;
+    this.searchResults = [];
+    this.query = '';
+    this.searching = false;
 
     this.postsHelper.init( _ => {
       this.posts = this.postsHelper.getAll();
     });
   }
-
 }
